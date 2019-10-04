@@ -1,8 +1,11 @@
 [
     {
+        "id": 1,
         "firstName": "Robinson",
         "lastName": "Villegas",
         "email": "robinsondotnet@hotmail.com",
-        "age": 26
+        "age": 26,
+        "reviewScore": 4,
+        "feedbackAssigneeEmployees": [1, 2]
     }
 ]

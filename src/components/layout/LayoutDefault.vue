@@ -30,7 +30,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: $secondary-color;
+  color: black;
   height: 100vh;
   display: grid;
   grid-template-columns: 15% 1fr;

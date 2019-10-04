@@ -7,7 +7,7 @@ export default {
       .get("http://localhost:3000/employee")
       .then(response => response.data)
       .then(employees => {
-        this.commit("product/setEmployees", employees);
+        this.commit("employee/setEmployees", employees);
       });
   }
 };

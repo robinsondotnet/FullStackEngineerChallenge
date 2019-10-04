@@ -1,19 +1,12 @@
 <template>
   <aside :class="$options.name">
-    <div :class="`${$options.name}__brand-imageWrapper`">
-      <img
-        :class="`${$options.name}__brand-imageWrapper-image`"
-        :src="brandUrl"
-      />
-    </div>
-
     <div :class="`${$options.name}__avatarWrapper`">
       <base-avatar :image-url="currentUser.avatarUrl" />
       <h3>{{ currentUser.name }}</h3>
     </div>
 
     <nav :class="`${$options.name}__menuWrapper`">
-      <app-sidebar-menu title="Customer" :menu-options="menuOptions" />
+      <app-sidebar-menu :menu-options="menuOptions" />
     </nav>
   </aside>
 </template>
@@ -39,8 +32,7 @@ export default {
   },
   data() {
     return {
-      brandUrl:
-        "https://www.belatrixsf.com/wp-content/themes/Belatrix/images/logo-belatrix.png"
+      brandUrl: "processCallback"
     };
   }
 };
@@ -53,19 +45,8 @@ export default {
 .AppSidebar {
   @include bg-transparent($secondary-color);
   grid-area: sidebar;
-  color: #fff;
+  color: black;
   min-width: 252px;
-
-  &__brand-imageWrapper {
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-
-    &-image {
-      width: 200px;
-    }
-  }
 
   &__avatarWrapper {
     background-color: $secondary-color;

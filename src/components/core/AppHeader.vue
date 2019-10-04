@@ -9,9 +9,11 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/scss/abstracts/_colors.scss";
+
 .AppHeader {
   grid-area: header;
-  background-color: orange;
+  background-color: $primary-color;
   color: white;
 }
 </style>

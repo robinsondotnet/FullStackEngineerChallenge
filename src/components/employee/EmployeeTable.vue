@@ -1,24 +1,33 @@
 <template>
-  <div :class="$options.name">
-    <employee-table-row
-      v-for="employee in employees"
-      :key="employee.id"
-      :employee="employee"
+  <table :class="$options.name">
+    <base-table-header
+      :columns="columns"
+      :is-editable="true"
+      :is-removable="true"
     />
-  </div>
+    <base-table-body
+      :columns="columns"
+      :rows="employees"
+      :is-editable="true"
+      :is-removable="true"
+    />
+  </table>
 </template>
 
 <script>
-import EmployeeTableRow from "./EmployeeTableRow.vue";
+import BaseTableHeader from "@/components/base/table/BaseTableHeader.vue";
+import BaseTableBody from "@/components/base/table/BaseTableBody.vue";
 
 export default {
   name: "EmployeeTable",
 
   components: {
-    EmployeeTableRow
+    BaseTableHeader,
+    BaseTableBody
   },
 
   props: {
+    columns: Array,
     employees: Array
   }
 };
@@ -26,11 +35,6 @@ export default {
 
 <style lang="scss">
 .EmployeeTable {
-  display: grid;
-  grid-column-gap: 1%;
-  grid-row-gap: 1%;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto;
-  grid-template-areas: "item item item item";
+  border: 0.05px solid gray;
 }
 </style>

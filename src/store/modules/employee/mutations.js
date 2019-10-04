@@ -1,5 +1,5 @@
 export default {
-  setEmployees(state, products) {
-    state.products = products;
+  setEmployees(state, employees) {
+    state.employees = employees;
   }
 };
