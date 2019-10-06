@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "firstName": "Robinson",
+        "lastName": "Villegas",
+        "age": 26,
+        "reviewScore": 4
+    },    {
+        "id": 2,
+        "firstName": "Foo",
+        "lastName": "Bar",
+        "age": 50,
+        "reviewScore": 4
+    }
+]

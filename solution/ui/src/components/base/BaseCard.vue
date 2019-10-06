@@ -36,12 +36,12 @@ export default {
 
   &__imageWrapper {
     border-bottom: 0.05em solid rgb(78, 76, 76);
+    width: 200px;
+    height: 200px;
 
     &-image {
-      max-width: 200px;
-      max-height: 200px;
-      min-width: 200px;
-      min-height: 200px;
+      width: 200px;
+      height: 200px;
     }
   }
 }

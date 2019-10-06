@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  // TODO: Handle exceptions and *isLoading flag (this should be concern of the caller component)
+  // TODO: Handle exceptions
   loadEmployees() {
     return axios
       .get("http://localhost:3000/employee")

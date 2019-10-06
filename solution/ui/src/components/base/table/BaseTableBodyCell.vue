@@ -2,7 +2,7 @@
   <td :class="[$options.name, actionClass]">
     <span v-if="type === 'star'">
       <star-rating
-        :class="`${$options.name}__star`"
+        :class="[`${$options.name}__star`, starEditClass]"
         :star-size="20"
         :rating="value"
         :read-only="!editMode"
@@ -86,6 +86,10 @@ export default {
 
     actionClass() {
       return this.isAction ? `${this.$options.name}--action` : "";
+    },
+
+    starEditClass() {
+      return this.editMode ? `${this.$options.name}__star--edit` : "";
     }
   },
 
@@ -113,6 +117,9 @@ export default {
 
   &__star {
     justify-content: center;
+    &--edit:hover {
+      font-size: 1.1em;
+    }
   }
 }
 </style>

@@ -68,9 +68,6 @@ export default {
         });
       }
     );
-  },
-
-  created() {
     this.$store.dispatch("employee/loadEmployees");
   }
 };
