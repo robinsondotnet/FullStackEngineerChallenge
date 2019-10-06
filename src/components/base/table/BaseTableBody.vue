@@ -3,21 +3,24 @@
     <tr v-for="row in rows" :key="row.id">
       <base-table-body-cell
         v-for="(column, columnIndex) in columns"
-        :key="columnIndex"
+        :key="`${row.id}-${columnIndex}`"
         :type="column.type"
-        :cell="{ value: row[column.name] }"
-        :edit-mode="editMode"
+        :custom-component="column.component"
+        v-model="row[column.name]"
+        :edit-mode="onEditionRow === row.id"
       />
+
       <td v-if="isEditable" :class="`${$options.name}__edit`">
         <span>
-          <button type="button" @click="onEdit($event, row.id)">
-            <i class="fa fa-edit"></i>
+          <button type="button" @click="onEdit($event, row)">
+            <i :class="`fa fa-${getSaveIcon(row.id)}`"></i>
           </button>
         </span>
       </td>
+
       <td v-if="isRemovable" :class="`${$options.name}__delete`">
         <span>
-          <button type="button" @click="onRemove($event, row.id)">
+          <button type="button" @click="onDelete($event, row.id)">
             <i class="fa fa-trash"></i>
           </button>
         </span>
@@ -40,26 +43,36 @@ export default {
     columns: Array,
     rows: Array,
     isEditable: Boolean,
-    isRemovable: Boolean,
+    isRemovable: Boolean
   },
 
   data() {
     return {
-      editMode: false
-    }
+      onEditionRow: 0
+    };
   },
 
   methods: {
-    onRemove(evt, rowKey) {
-      this.$emit("on-remove", evt, rowKey);
+    onDelete(evt, rowKey) {
+      this.$emit("on-delete", evt, rowKey);
     },
 
-    onEdit(evt, rowKey) {
-      if (this.editMode) {
-        this.$emit("on-edit", evt, rowKey);
+    onEdit(evt, row) {
+      if (this.onEditionRow === row.id) {
+        this.$emit("on-edit", evt, row.id);
+        this.onEditionRow = 0;
+        return;
       }
 
-      this.editMode = !this.editMode;
+      this.onEditionRow = row.id;
+    },
+
+    getSaveIcon(rowKey) {
+      if (this.onEditionRow === rowKey) {
+        return "save";
+      }
+
+      return "edit";
     }
   }
 };

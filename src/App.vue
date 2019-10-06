@@ -1,6 +1,6 @@
 <template>
-  <layout-default id="app" >
-      <router-view />
+  <layout-default id="app">
+    <router-view />
   </layout-default>
 </template>
 
@@ -11,7 +11,7 @@ export default {
   components: {
     LayoutDefault
   }
-}
+};
 </script>
 
 <style lang="scss">

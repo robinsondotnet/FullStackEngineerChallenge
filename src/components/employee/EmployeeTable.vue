@@ -10,6 +10,8 @@
       :rows="employees"
       :is-editable="true"
       :is-removable="true"
+      @on-edit="onEdit"
+      @on-delete="onDelete"
     />
   </table>
 </template>
@@ -29,6 +31,16 @@ export default {
   props: {
     columns: Array,
     employees: Array
+  },
+
+  methods: {
+    onEdit(evt, employee) {
+      this.$emit("on-edit", evt, employee);
+    },
+
+    onDelete(evt, employeeId) {
+      this.$emit("on-delete", evt, employeeId);
+    }
   }
 };
 </script>

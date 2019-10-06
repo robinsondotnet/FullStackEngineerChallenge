@@ -7,8 +7,8 @@
     >
       {{ column.text }}
     </th>
-    <th key="edit" v-if="isEditable" :class="`${$options.name}__cell`"></th>
-    <th key="delete" v-if="isRemovable" :class="`${$options.name}__cell`"></th>
+    <th v-if="isEditable" :class="`${$options.name}__cell`"></th>
+    <th v-if="isRemovable" :class="`${$options.name}__cell`"></th>
   </thead>
 </template>
 

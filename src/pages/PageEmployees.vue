@@ -35,19 +35,39 @@ export default {
       columns: [
         { name: "firstName", text: "First Name" },
         { name: "lastName", text: "Last Name" },
-        { name: "age", text: "Age", type: "number" }
+        { name: "age", text: "Age", type: "number" },
+        { name: "reviewScore", text: "Performance Review", type: "star" },
+        {
+          name: "feedbackAssigneeEmployees",
+          text: "Feedback Assignee",
+          type: "multi-select",
+          component: "feedback-assignment-multi-select",
+          icon: "box"
+        }
       ]
     };
   },
 
   methods: {
-    onEditEmployee(evt, index) {
-      console.log(evt);
+    onEditEmployee(evt, employee) {
+      this.$store.dispatch("employee/updateEmployee", employee);
     },
 
-    onDeleteEmployee(evt, index) {
-      console.log(evt);
+    onDeleteEmployee(evt, employeeId) {
+      this.$store.dispatch("employee/deleteEmployee", employeeId);
     }
+  },
+
+  mounted() {
+    this.$eventBus.$on(
+      "ON_REVIEW_FEEDBACK_ASSIGNED",
+      ({ employeeId, feedbackAssigneeEmployees }) => {
+        this.$store.commit("employee/setReviewFeedbackAssignee", {
+          employeeId: parseInt(employeeId),
+          feedbackAssigneeEmployees
+        });
+      }
+    );
   },
 
   created() {

@@ -1,15 +1,22 @@
 <template>
   <span v-if="editMode">
-    <input type="text" v-model="dirty" />
+    <label>
+      <input :type="type" v-model="value" />
+    </label>
   </span>
   <span v-else>
-    {{ text }}
+    {{ value }}
   </span>
 </template>
 
 <script>
 export default {
   name: "BaseTextBox",
+
+  model: {
+    prop: "model",
+    event: "input"
+  },
 
   props: {
     editMode: {
@@ -18,16 +25,32 @@ export default {
         return false;
       }
     },
-    text: String,
-  },
-  data() {
-    return {
-      dirty: ""
+    model: [String, Number],
+    type: {
+      type: String,
+      default() {
+        return "text";
+      }
     }
   },
 
-  mounted() {
-    this.dirty = this.text;
+  watch: {
+    value(val) {
+      if (this.type === "number") {
+        this.$emit("input", Number(val));
+      } else {
+        this.$emit("input", val);
+      }
+    },
+    model(val) {
+      this.value = val;
+    }
+  },
+
+  data() {
+    return {
+      value: null
+    };
   }
 };
 </script>

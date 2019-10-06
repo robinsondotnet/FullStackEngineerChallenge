@@ -29,11 +29,6 @@ export default {
       currentUser: state => state.user,
       menuOptions: state => state.permission.menuOptions
     })
-  },
-  data() {
-    return {
-      brandUrl: "processCallback"
-    };
   }
 };
 </script>
