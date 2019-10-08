@@ -1,7 +1,7 @@
 ﻿namespace FullStackChallenge.Data.Models
 {
-    public class Feedback
+    public class Feedback : IModel
     {
-        
+        public int Id { get; set; }
     }
 }

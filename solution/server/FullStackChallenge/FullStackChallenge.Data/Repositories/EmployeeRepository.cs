@@ -12,7 +12,7 @@ namespace FullStackChallenge.Data.Repositories
         
         Task<List<Employee>> GetAsync();
 
-        Task<bool> UpdateAsync(Employee employee);
+        Task<Employee> UpdateAsync(Employee employee);
     }
     
     public class EmployeeRepository : IEmployeeRepository
@@ -39,8 +39,7 @@ namespace FullStackChallenge.Data.Repositories
             return _baseRepository.GetAsync();
         }
 
-
-        public Task<bool> UpdateAsync(Employee employee)
+        public Task<Employee> UpdateAsync(Employee employee)
         {
             return _baseRepository.UpdateAsync(employee);
         }

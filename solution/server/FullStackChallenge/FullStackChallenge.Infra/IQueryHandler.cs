@@ -1,7 +1,9 @@
-﻿namespace FullStackChallenge.Infra
+﻿using System.Threading.Tasks;
+
+namespace FullStackChallenge.Infra
 {
-    public class IQueryHandler
+    public interface IQueryHandler<TQuery, TResult>
     {
-        
+        Task<TResult> RetrieveAsync(TQuery query);
     }
 }

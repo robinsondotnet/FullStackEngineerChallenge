@@ -4,7 +4,7 @@ using FullStackChallenge.Infra;
 
 namespace FullStackChallenge.Data.Commands
 {
-    public class UpdateEmployeeAndReviewCommand : ICommand
+    public class UpdateEmployeeReviewAndAssigneeCommand : ICommand
     {
         public Employee Employee;
 

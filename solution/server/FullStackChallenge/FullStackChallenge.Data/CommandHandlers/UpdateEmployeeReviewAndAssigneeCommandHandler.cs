@@ -7,19 +7,19 @@ using FullStackChallenge.Infra;
 
 namespace FullStackChallenge.Data.CommandHandlers
 {
-    public class UpdateEmployeeAndReviewCommandHandler : ICommandHandler<UpdateEmployeeAndReviewCommand>
+    public class UpdateEmployeeReviewAndAssigneeCommandHandler : ICommandHandler<UpdateEmployeeReviewAndAssigneeCommand>
     {
         private readonly IEmployeeRepository _employeeRepository;
 
         private readonly IReviewRepository _reviewRepository;
 
-        public UpdateEmployeeAndReviewCommandHandler(IEmployeeRepository employeeRepository, IReviewRepository reviewRepository)
+        public UpdateEmployeeReviewAndAssigneeCommandHandler(IEmployeeRepository employeeRepository, IReviewRepository reviewRepository)
         {
             _employeeRepository = employeeRepository;
             _reviewRepository = reviewRepository;
         }
         
-        public async Task HandleAsync(UpdateEmployeeAndReviewCommand command)
+        public async Task HandleAsync(UpdateEmployeeReviewAndAssigneeCommand command)
         {
             await _employeeRepository.UpdateAsync(command.Employee);
 

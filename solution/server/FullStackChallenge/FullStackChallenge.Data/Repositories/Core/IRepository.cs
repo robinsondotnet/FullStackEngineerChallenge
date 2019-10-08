@@ -9,7 +9,7 @@ namespace FullStackChallenge.Data.Repositories.Core
     {
         Task<List<TModel>> GetAsync();
         
-        Task<bool> UpdateAsync(TModel model);
+        Task<TModel> UpdateAsync(TModel model);
 
         Task<bool> InsertAsync(TModel model);
     }

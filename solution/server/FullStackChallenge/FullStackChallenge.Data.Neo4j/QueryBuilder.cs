@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FullStackChallenge.Infra.Utils;
 
-namespace FullStackChallenge.Data.Neo4j.Repositories
+namespace FullStackChallenge.Data.Neo4j
 {
     public interface IQueryBuilder
     {

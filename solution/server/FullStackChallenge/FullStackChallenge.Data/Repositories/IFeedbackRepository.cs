@@ -1,6 +1,8 @@
-﻿namespace FullStackChallenge.Data.Repositories
+﻿using System;
+
+namespace FullStackChallenge.Data.Repositories
 {
-    public interface IFeedbackRepository
+    public interface IFeedbackRepository : IDisposable
     {
         
     }
