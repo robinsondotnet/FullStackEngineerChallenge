@@ -1,8 +1,13 @@
-﻿using FullStackChallenge.Data.CommandHandlers;
+﻿using System.Collections.Generic;
+using FullStackChallenge.Data.CommandHandlers;
 using FullStackChallenge.Data.Commands;
 using FullStackChallenge.Data.Config;
+using FullStackChallenge.Data.Dto.Employee;
 using FullStackChallenge.Data.Models;
+using FullStackChallenge.Data.Neo4j;
 using FullStackChallenge.Data.Neo4j.Repositories;
+using FullStackChallenge.Data.Queries;
+using FullStackChallenge.Data.QueryHandlers;
 using FullStackChallenge.Data.Repositories;
 using FullStackChallenge.Data.Repositories.Core;
 using FullStackChallenge.Infra;
@@ -16,6 +21,8 @@ namespace FullStackChallenge.Web.API
 {
     public class Startup
     {
+        public const string CookieScheme = "foo";
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -34,9 +41,20 @@ namespace FullStackChallenge.Web.API
             
             // Add CommandHandlers
             services
-                .AddTransient<ICommandHandler<UpdateEmployeeAndReviewCommand>, UpdateEmployeeAndReviewCommandHandler>();
+                .AddTransient<ICommandHandler<UpdateEmployeeReviewAndAssigneeCommand>, UpdateEmployeeReviewAndAssigneeCommandHandler>();
+            
+            // Add QueryHandlers
+            services
+                .AddTransient<IQueryHandler<GetEmployeesWithReviewAndAssigneeQuery, List<EmployeeDto>>, EmployeesQueryHandler>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            services.AddAuthentication(CookieScheme)
+                .AddCookie(CookieScheme, options =>
+                {
+                    options.AccessDeniedPath = "/account/denied";
+                    options.LoginPath = "/account/login";
+                });
         }
 
         private void ConfigureDatabase(IServiceCollection services)

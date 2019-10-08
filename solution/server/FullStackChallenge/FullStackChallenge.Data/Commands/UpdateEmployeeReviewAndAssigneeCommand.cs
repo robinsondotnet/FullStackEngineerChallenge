@@ -9,5 +9,7 @@ namespace FullStackChallenge.Data.Commands
         public Employee Employee;
 
         public int? PerformanceReviewValue;
+        
+        public int[] ReviewFeedbackAssigneeIds { get; set; }
     }
 }

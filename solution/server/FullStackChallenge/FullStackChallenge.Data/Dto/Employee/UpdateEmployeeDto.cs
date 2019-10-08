@@ -1,6 +1,6 @@
 ﻿namespace FullStackChallenge.Data.Dto.Employee
 {
-    public class UpsertEmployeeDto
+    public class InsertEmployeeDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

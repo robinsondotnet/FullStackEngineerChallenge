@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using FullStackChallenge.Data.Commands;
 using FullStackChallenge.Data.Models;
 using FullStackChallenge.Data.Dto.Employee;
-using FullStackChallenge.Data.Repositories;
+using FullStackChallenge.Data.Queries;
 using FullStackChallenge.Infra;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,39 +16,35 @@ namespace FullStackChallenge.Web.API.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IQueryHandler<GetEmployeesWithReviewAndAssigneeQuery, List<EmployeeDto>> _queryHandler;
 
-        private readonly ICommandHandler<UpdateEmployeeAndReviewCommand> _commandHandler;
+        private readonly ICommandHandler<UpdateEmployeeReviewAndAssigneeCommand> _commandHandler;
 
         private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeRepository employeeRepository, ICommandHandler<UpdateEmployeeAndReviewCommand> commandHandler)
+        public EmployeeController(IQueryHandler<GetEmployeesWithReviewAndAssigneeQuery, List<EmployeeDto>> queryHandler, ICommandHandler<UpdateEmployeeReviewAndAssigneeCommand> commandHandler)
         {
-            _employeeRepository = employeeRepository;
+            _queryHandler = queryHandler;
             _commandHandler = commandHandler;
         }
 
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            var employees = await _employeeRepository.GetAsync();
+            var query = new GetEmployeesWithReviewAndAssigneeQuery();
+            
+            var employees = await _queryHandler.RetrieveAsync(query);
 
             if (employees == null || !employees.Any())
                 return NoContent();
 
             return new JsonResult(employees);
         }
-
-        [HttpPost]
-        public Task<ActionResult> Post([FromBody] UpsertEmployeeDto request)
-        {
-            throw new NotImplementedException();
-
-        }
-
+        
         [HttpPut]
-        public async Task<ActionResult>  Put([FromBody] UpsertEmployeeDto request)
+        public async Task<ActionResult>  Put([FromBody] UpdateEmployeeDto request)
         {
+            // TODO: Use mapper of translator (Validation would be good too)
             var employee = new Employee
             {
                 Id = request.Id,
@@ -57,16 +53,28 @@ namespace FullStackChallenge.Web.API.Controllers
                 Age = request.Age
             };
             
-            var command = new UpdateEmployeeAndReviewCommand{ Employee = employee, PerformanceReviewValue = request.PerformanceReviewValue};
+            var command = new UpdateEmployeeReviewAndAssigneeCommand
+            {
+                Employee = employee,
+                PerformanceReviewValue = request.PerformanceReviewValue,
+                ReviewFeedbackAssigneeIds = request.ReviewFeedbackAssigneeIds
+            };
 
             await _commandHandler.HandleAsync(command);
 
             return Ok();
         }
 
+        [HttpPost]
+        public Task<ActionResult> Post([FromBody] UpdateEmployeeDto request)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            throw new NotImplementedException();
         }
     }
 }
