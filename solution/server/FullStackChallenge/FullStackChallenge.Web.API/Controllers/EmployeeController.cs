@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
-using FullStackChallenge.Data.Repositories.Interfaces;
-using FullStackChallenge.Web.API.Dto;
+using FullStackChallenge.Data.Commands;
+using FullStackChallenge.Data.Models;
+using FullStackChallenge.Data.Dto.Employee;
+using FullStackChallenge.Data.Repositories;
+using FullStackChallenge.Infra;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FullStackChallenge.Web.API.Controllers
@@ -14,11 +18,14 @@ namespace FullStackChallenge.Web.API.Controllers
     {
         private readonly IEmployeeRepository _employeeRepository;
 
+        private readonly ICommandHandler<UpdateEmployeeAndReviewCommand> _commandHandler;
+
         private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeRepository employeeRepository)
+        public EmployeeController(IEmployeeRepository employeeRepository, ICommandHandler<UpdateEmployeeAndReviewCommand> commandHandler)
         {
             _employeeRepository = employeeRepository;
+            _commandHandler = commandHandler;
         }
 
         [HttpGet]
@@ -32,25 +39,31 @@ namespace FullStackChallenge.Web.API.Controllers
             return new JsonResult(employees);
         }
 
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Feedback
         [HttpPost]
-        public void Post([FromBody] UpsertEmployeeDto request)
+        public Task<ActionResult> Post([FromBody] UpsertEmployeeDto request)
         {
+            throw new NotImplementedException();
+
         }
 
-        // PUT: api/Feedback/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] UpsertEmployeeDto request)
+        [HttpPut]
+        public async Task<ActionResult>  Put([FromBody] UpsertEmployeeDto request)
         {
+            var employee = new Employee
+            {
+                Id = request.Id,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Age = request.Age
+            };
+            
+            var command = new UpdateEmployeeAndReviewCommand{ Employee = employee, PerformanceReviewValue = request.PerformanceReviewValue};
+
+            await _commandHandler.HandleAsync(command);
+
+            return Ok();
         }
 
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

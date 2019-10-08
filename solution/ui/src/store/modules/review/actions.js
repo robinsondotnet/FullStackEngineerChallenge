@@ -5,7 +5,7 @@ import axios from "axios";
 export default {
   loadReviews() {
     return axios
-      .get("http://localhost:3000/review")
+      .get("/review")
       .then(response => response.data)
       .then(reviews => {
         this.commit("review/setReviews", reviews);
