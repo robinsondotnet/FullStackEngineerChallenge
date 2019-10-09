@@ -1,11 +1,32 @@
-# Full Stack Developer Challenge
-This is an interview challengs. Please feel free to fork. Pull Requests will be ignored.
+# Performance Review App
 
-## Requirements
-Design a web application that allows employees to submit feedback toward each other's performance review.
+## Languages, Frameworks and Tools used
+* **Client App:** SPA, VueJs, Vuex, SCSS, SUIT CSS Style methodology
+* **Server App:** ASPNET Core 2.2, Neo4J, xUnit, AutoFixture, NSubstitute
 
-*Partial solutions are acceptable.*  It is not necessary to submit a complete solution that implements every requirement.
+## Assumptions made
+* Assume this application is just a small module or piece of a big scale application so I focused on maintainability and writing shared components and c# shared projects (extensibility, ex: change db driver, etc).
 
+* Assume we decide to handle most of the logic on backend side. Performance Review ˆ& Review Feedback assignemnt would be handled on server side in just one API call. That's why I decided to create a single reusable component (Table) that allows users to modify employee, assign feedback review to employees and submit performarce review or update the last one (we would need a new button to create a new review instead of updating the existing one, this would affect employees assigned to write a feedback to the existing one, this could be the desired behavior if we want to submit performance review each term and want to save the old reviews with its feedbacks).
+
+## Status
+Unfortunately client app is not connected to the WIP backend. I decided to use json-server for quick demo and development purpose (So none of the below specs are persisting in db).
+
+#### Run
+```
+cd ./solution/ui && npm install
+```
+```
+npm run json-server
+```
+```
+npm run serve
+```
+and go to http://localhost:8080
+
+### *Client:*
+![](clientapp.png)
+![](clientapp2.png)
 ### Admin view
 * Add/remove/update/view employees
 * Add/update/view performance reviews
@@ -15,25 +36,22 @@ Design a web application that allows employees to submit feedback toward each ot
 * List of performance reviews requiring feedback
 * Submit feedback
 
-## Challenge Scope
-* High level description of design and technologies used
-* Server side API (using a programming language and/or framework of your choice)
-  * Implementation of at least 3 API calls
-  * Most full stack web developers at PayPay currently use Java, Ruby on Rails, or Node.js on the server(with MySQL for the database), but feel free to use other tech if you prefer
-* Web app
-  * Implementation of 2-5 web pages using a modern web framework (e.g. React or Angular) that talks to server side
-    * This should integrate with your API, but it's fine to use static responses for some of it 
-* Document all assumptions made
-* Complete solutions aren't required, but what you do submit needs to run.
+### *Server:*
+![](server.png)
+This is how our database looks like with employees and reviews
 
-## How to complete this challenge
-* Fork this repo in github
-* Complete the design and code as defined to the best of your abilities
-* Place notes in your code to help with clarity where appropriate. Make it readable enough to present to the PayPay interview team
-* Complete your work in your own github repo and send the results to us and/or present them during your interview
+#### Run
+```
+cd ./solution/server/FullStackChallenge && dotnet build
+```
+```
+cd ./FullStackChallenge.Web.API/ && dotnet run
+```
 
-## What are we looking for? What does this prove?
-* Assumptions you make given limited requirements
-* Technology and design choices
-* Identify areas of your strengths
-* This is not a pass or fail test, this will serve as a common ground that we can deep dive together into specific issues
+#### Test
+```
+cd ./solution/server/FullStackChallenge/FullStackChallenge.UnitTests
+```
+```
+dotnet test
+```

@@ -12,7 +12,7 @@ namespace FullStackChallenge.Web.API.Controllers
     public class AccountController : ControllerBase
     {
         
-        
+       /* 
         [HttpPost]
         public async Task<IActionResult> Login(string userName, string password, string returnUrl = null)
         {
@@ -39,7 +39,7 @@ namespace FullStackChallenge.Web.API.Controllers
 
             return View();
         }
-
+*/
         
     }
 }
